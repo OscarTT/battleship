@@ -1,0 +1,27 @@
+getPos() {
+  let position = [];
+  var a = Math.floor(Math.random() * 10);
+  var b = Math.floor(Math.random() * 10);
+  position = [a, b];
+  return position;
+}
+
+putShip() {
+  let i = 0;
+  while (i < 5) {
+    let position = this.getPos();
+    if (this.state.board[position[0]][position[1]] === 0) {
+      this.state.board[position[0]][position[1]] = this.state.SHIP;
+      i++;
+    }
+  }
+}
+
+getBoard() {
+  var board = [];
+  for (let i=0; i<=10; i++){
+    board.push([0,0,0,0,0,0,0,0,0,0,])
+  }
+  return board
+
+  SHIP: 1,

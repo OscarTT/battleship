@@ -1,0 +1,12 @@
+td {
+  width: 80px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+tr {
+  height: 60px;
+}
+h1 {
+  text-align: center;
+}
