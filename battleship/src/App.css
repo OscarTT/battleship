@@ -30,9 +30,20 @@ h2 {
 body {
 	background-color: #000000;
 	cursor: url("https://dl2.macupdate.com/images/icons128/11396.png?d=1475850134"), auto;
-
 }
 
 table {
 	margin: auto;
+}
+
+.empty {
+	background:
+}
+
+.miss {
+	
+}
+
+.hit {
+	background:
 }
