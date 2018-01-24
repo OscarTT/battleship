@@ -2,11 +2,37 @@ td {
   width: 80px;
   border: 1px solid black;
   text-align: center;
+  border-color: #7FFF00;
 }
 
 tr {
   height: 60px;
 }
+
 h1 {
   text-align: center;
+  color: white;
+}
+h2 {
+	color: white;
+	text-align: center;
+}
+
+.square {
+  position: relative;
+  margin: 1.66%;
+}
+
+.square:hover {
+  background-color: #80827f;
+}
+
+body {
+	background-color: #000000;
+	cursor: url("https://dl2.macupdate.com/images/icons128/11396.png?d=1475850134"), auto;
+
+}
+
+table {
+	margin: auto;
 }

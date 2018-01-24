@@ -5,71 +5,108 @@ import React, { Component } from 'react';
 // randomNum = Math.floor(Math.random() * 10)
 
 class BattleshipBoard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      board: [],
-    }
-    this.setupBoard()
-  }
+	constructor(props) {
+		super(props)
+		this.state = {
+			board: [],
+			shipCount: 0,
+			torpedoesRemaining: 25,
+		}
 
-  componentWillMount(){
-    for (var i =0; i < 5; i++) {
-      this.placeShip()
-    }
-  }
+		this.setupBoard()
+	}
 
-  setupBoard(){
-    for(let i = 0; i <= 10; i++){
-      this.state.board.push([])
-    }
-  }
+	componentWillMount(){
+		for (var i =0; i < 5; i++) {
+	  		this.placeShip()
+		}
+	}
 
-  placeShip(){
-    var x = Math.floor(Math.random() * 9)
-    var y = Math.floor(Math.random() * 9)
+	setupBoard(){
+    	let board = []
 
-     this.state.board[x][y]= 'SHIP'
+    	for(let row = 0; row < 10; row++){
+      		board.push([])
 
-  }
+	  	for(let col = 0; col < 10; col++) {
+		 	board[row][col] = false
+	  	}
+    	}
+    	this.state.board = board
+  	}
 
-  clickHandler(x, y){
+  	placeShip(){
+    	var row = Math.floor(Math.random() * 9)
+    	var col = Math.floor(Math.random() * 9)
 
-  }
+     	this.state.board[row][col]= ' '
+      // console.log(row,col);
+    //TODO check placement of ship is not overlapping
+  	}
 
-  renderRow(rowNumber) {
-    var row = []
-    for (let i = 0; i < 10; i++) {
-      let theXY = i + "_" + rowNumber
-      row.push(
-        <td onClick={this.clickHandler.bind(this, i, rowNumber)}
+	clickHandler(row, col, e) {
+		const { board, torpedoesRemaining } = this.state
+		let clicked = e.target
+		console.log({board});
+
+		if (this.state.torpedoesRemaining === 0){
+			alert("Game Over")
+
+
+		}
+		else if(board[row][col]){
+			board[row][col] = "Hit"
+			clicked.style.backgroundColor = "green"
+		}
+		else if (!board[row][col]){
+			board[row][col] = "Miss"
+			clicked.style.backgroundColor = "red"
+
+		}
+		this.setState({
+			board: board,
+			torpedoesRemaining: torpedoesRemaining-1
+		})
+  	}
+
+  	renderRow(rowNumber) {
+		var row = []
+		for (let i = 0; i < 10; i++) {
+			let theXY = i + "_" + rowNumber
+      		row.push(
+        	<td className="square" onClick={this.clickHandler.bind(this, i, rowNumber)}
             id={theXY}
             key={theXY}
-        >
-          {this.state.board[i][rowNumber]}
-        </td>
-      )
-    }
-    return row
-  }
+        	>
+          	{this.state.board[i][rowNumber]}
+        	</td>
+      		)
+    	}
+    	return row
+  	}
 
-  renderRows(){
-    var rows = []
-    for (let i = 0; i < 10; i++) {
-      rows.push(<tr id={i} key={i}>{this.renderRow(i)}</tr>)
-    }
+  	renderRows(){
+    	var rows = []
+    	for (let i = 0; i < 10; i++) {
+    		rows.push(<tr id={i} key={i}>{this.renderRow(i)}</tr>)
+
+
+    	}
     return rows
-  }
+  	}
 
-  render() {
-    return(
-      <table >
-        <tbody>
-          { this.renderRows() }
-        </tbody>
-      </table>
-    )
-  }
+  	render() {
+    	return(
+			<div>
+      			<table >
+        			<tbody>
+          				{ this.renderRows() }
+        			</tbody>
+      			</table>
+	  			<h2>Remaining Torpedoes: { this.state.torpedoesRemaining }</h2>
+			</div>
+    	)
+  	}
 }
 
 export default BattleshipBoard;
