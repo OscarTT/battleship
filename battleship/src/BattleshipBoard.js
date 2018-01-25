@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-/*Create a global variable called board and have it hold an empty array, Have that empty array hold 10 empty arrays */
-
-/*Create a global constant SHIP variable with a value of 1. */
-// randomNum = Math.floor(Math.random() * 10)
 
 const EMPTY = 0
-const SHIP = 1
 const MISS = 'Miss'
 const HIT = 'Hit'
-const Battleship = 3
+const AIRCRAFTCARRIER = 5
+const BATTLESHIP = 4
+const SUBMARINE = 3
+const DESTROYER = 2
+const PATROLBOAT = 1
 
 
 
@@ -42,22 +41,27 @@ class BattleshipBoard extends Component {
 
 	// Sets limit to five ships
 	componentWillMount(){
-		for (var i =0; i < 5; i++) {
-			this.placeShip()
-		}
+
+			// this.patrolboat()
+			this.aircraftCarrier()
+			this.submarine()
+			this.submarine()
+			this.Battleship()
+			this.Destroyer()
+
 	}
 
 	// Randomly places the 5 ships
-  	placeShip() {
+  	patrolboat() {
 		const { board } = this.state
     	var row = Math.floor(Math.random() * 9)
     	var col = Math.floor(Math.random() * 9)
 
-		for (let i = 0; i < []; i++){
-			board[row][col + i] = SHIP
+		for (let i = 0; i < 1; i++){
+			if (board[row][col] !== 5 && board[row][col] !== 2 && board[row][col] !== 3 && board[row][col] !== 4) {
+			board[row][col + i] = PATROLBOAT
 		}
-
-		board[row][col] = SHIP
+	}
 
      	this.setState({
 			board: board
@@ -70,15 +74,64 @@ class BattleshipBoard extends Component {
 		const { board } = this.state
 		var row = Math.floor(Math.random() * 8)
     	var col = Math.floor(Math.random() * 5)
+		if (!board[row][col] && !board[row][col+1] && !board[row][col+2] && !board[row][col+3] && !board[row][col+4]){
 
-		if (!board[row][col] && !board[row][col+1] && !board[row][col+2] && !board[row][col+3] &&
-		!board[row][col+4]) {
-			board[row][col] = Battleship
-			board[row][col] = Battleship
-			board[row][col] = Battleship
-			board[row][col] = Battleship
-			board[row][col] = Battleship
+
+		for (let i = 0; i < AIRCRAFTCARRIER; i++){
+			if (board[row][col] !== 1 && board[row][col] !== 2 && board[row][col] !== 3 && board[row][col] !== 4) {
+				board[row][col + i] = AIRCRAFTCARRIER
+			}
 		}
+	}
+		this.setState({
+			board:board
+		})
+	}
+
+	submarine() {
+		const { board } = this.state
+		var row = Math.floor(Math.random() * 8)
+    	var col = Math.floor(Math.random() * 5)
+
+		if (!board[row][col] && !board[row][col+1] && !board[row][col+2]){
+		for (let i = 0; i < SUBMARINE; i++){
+			if (board[row][col] !== 1 && board[row][col] !== 2 && board[row][col] !== 5 && board[row][col] !== 4) {
+				board[row][col + i] = SUBMARINE
+			}
+		}
+	}
+		this.setState({
+			board:board
+		})
+	}
+	Destroyer() {
+		const { board } = this.state
+		var row = Math.floor(Math.random() * 8)
+    	var col = Math.floor(Math.random() * 5)
+
+		if (!board[row][col] && !board[row][col+1]){
+		for (let i = 0; i < DESTROYER; i++){
+			if (board[row][col] !== 1 && board[row][col] !== 5 && board[row][col] !== 3 && board[row][col] !== 4) {
+				board[row][col + i] = DESTROYER
+			}
+		}
+	}
+		this.setState({
+			board:board
+		})
+	}
+	Battleship() {
+		const { board } = this.state
+		var row = Math.floor(Math.random() * 8)
+    	var col = Math.floor(Math.random() * 5)
+
+		if (!board[row][col] && !board[row][col+1] && !board[row][col+2] && !board[row][col+3]){
+		for (let i = 0; i < BATTLESHIP; i++){
+			if (board[row][col] !== 1 && board[row][col] !== 2 && board[row][col] !== 3 && board[row][col] !== 5) {
+				board[row][col + i] = BATTLESHIP
+			}
+		}
+	}
 		this.setState({
 			board:board
 		})
@@ -95,15 +148,19 @@ class BattleshipBoard extends Component {
 
 	renderRow(rowNumber) {
 		var status = "square"
-
 		var row = []
+
 		for (let i = 0; i < 10; i++) {
 			if(this.state.board[rowNumber][i] === 0){
-				status = "square empty"
+				status = "squareEmpty"
+			}else if(this.state.board[rowNumber][i] === 1){
+				status = "squarePatrolBoat"
+			}else if(this.state.board[rowNumber][i] === MISS){
+				status = "squareMiss"
+			}else if(this.state.board[rowNumber][i] === HIT){
+				status = "squareHit"
 			}
-			if(this.state.board[rowNumber][i] === 1){
-				status = "square empty"
-			}
+
 			let theXY = rowNumber + "_" + i
       		row.push(
         	<td className={status} onClick={this.clickHandler.bind(this, i, rowNumber)}
@@ -119,7 +176,6 @@ class BattleshipBoard extends Component {
 
 	clickHandler(col, row, e) {
 		const { board, torpedoesRemaining, torpedoesUsed } = this.state
-		let clicked = e.target
 
         // if no torpedoes remaining - exit the function early
 		if (torpedoesRemaining <= 0){
@@ -127,18 +183,12 @@ class BattleshipBoard extends Component {
 			return
 		}
 
-		if(board[row][col] === SHIP){
+		if(board[row][col] === PATROLBOAT){
 			board[row][col] = HIT
-
-			clicked.style.backgroundColor = "green"
-			//TODO refactor style to css
-		}
-
-		else if (board[row][col] === EMPTY){
+		}else if (board[row][col] === EMPTY){
 			board[row][col] = MISS
-			clicked.style.backgroundColor = "red"
-		} else if (HIT === HIT && MISS === MISS) {
-			alert('WRONG')
+		}else if (HIT === HIT && MISS === MISS) {
+			alert('Already Clicked Square')
 			return
 		}
 

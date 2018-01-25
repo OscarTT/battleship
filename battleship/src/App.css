@@ -2,11 +2,13 @@ td {
   width: 80px;
   border: 1px solid black;
   text-align: center;
-  border-color: #7FFF00;
+  border-color: black;
+  /* #7FFF00; green for boarder color*/
 }
 
 tr {
   height: 60px;
+
 }
 
 h1 {
@@ -28,7 +30,7 @@ h2 {
 }
 
 body {
-	background-color: #000000;
+	background-color: white;
 	cursor: url("https://dl2.macupdate.com/images/icons128/11396.png?d=1475850134"), auto;
 }
 
@@ -36,14 +38,12 @@ table {
 	margin: auto;
 }
 
-.empty {
-	background:
+.squareEmpty:hover, .squareShip:hover {
+	background-color: #80827f;
 }
-
-.miss {
-	
+.squareHit {
+	background-color: green;
 }
-
-.hit {
-	background:
+.squareMiss {
+	background-color: red;
 }

@@ -5,22 +5,16 @@ import Header from './header'
 
 class App extends Component {
 
-
-  render() {
-    return (
-
-          <div>
-            <div>
-            <Header />
-            </div>
-            <div >
-              <BattleshipBoard />
-            </div>
-          </div>
-
-
-    )
-  }
+	render() {
+		return (
+			<div>
+				<div>
+					<Header />
+					<BattleshipBoard />
+				</div>
+			</div>
+    	)
+  	}
 }
 
 export default App;
