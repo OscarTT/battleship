@@ -1,3 +1,4 @@
+
 td {
   width: 80px;
   border: 1px solid black;
@@ -13,37 +14,39 @@ tr {
 
 h1 {
   text-align: center;
-  color: white;
+  color: black;
 }
+
 h2 {
-	color: white;
+	color: black;
 	text-align: center;
-}
-
-.square {
-  position: relative;
-  margin: 1.66%;
-}
-
-.square:hover {
-  background-color: #80827f;
 }
 
 body {
 	background-color: white;
-	cursor: url("https://dl2.macupdate.com/images/icons128/11396.png?d=1475850134"), auto;
+	/* cursor: url("https://dl2.macupdate.com/images/icons128/11396.png?d=1475850134"), auto; */
 }
 
 table {
 	margin: auto;
 }
 
-.squareEmpty:hover, .squareShip:hover {
+.empty {
+  position: relative;
+  margin: 1.66%;
+}
+
+.empty:hover, .destroyer:hover, .submarine:hover, .battleship:hover, .aircraftCarrier:hover {
 	background-color: #80827f;
 }
-.squareHit {
+
+.destroyer, .submarine, .battleship, .aircraftCarrier {
+	background-color: blue;
+}
+
+.hit {
 	background-color: green;
 }
-.squareMiss {
+.miss {
 	background-color: red;
 }
